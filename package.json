@@ -1,0 +1,28 @@
+{
+    "name": "poiesis",
+    "version": "1.0.0",
+    "scripts": {
+        "client-build": "cd client && npm run build && cd ..",
+        "client-run": "cd client && npm run start",
+        "dev": "concurrently \"npm run client-run\" \"node start\"",
+        "now-dev": "cd client && npm run start",
+        "start": "npm run client-build && node server",
+        "watch": "nodemon ./start.js --ignore public/",
+        "deploy": "now --target production && now rm poiesis --safe --yes"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "csv": "^5.1.1",
+        "csv-parser": "^2.2.0",
+        "directory-tree": "^2.2.2",
+        "dotenv": "^4.0.0",
+        "express": "^4.16.4",
+        "html-entities": "^1.2.1",
+        "remove-accents": "^0.4.2",
+        "rita": "^1.3.94"
+    },
+    "devDependencies": {
+        "concurrently": "^3.6.1",
+        "nodemon": "^1.18.4"
+    }
+}
