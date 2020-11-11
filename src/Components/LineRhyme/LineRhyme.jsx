@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { templateList } from "Components/Templates/templateList";
 
 const LineRhymeDiv = styled.div`
@@ -17,22 +17,13 @@ const LineRhymeDiv = styled.div`
     user-select: none;
 `;
 
-class LineRhyme extends React.PureComponent {
-    render() {
-        const { index, template } = this.props;
-        const hasRhymes =
-            templateList[template].rhymed &&
-            templateList[template].lines[index];
-        return hasRhymes ? (
-            <LineRhymeDiv>
-                {templateList[template].lines[index].rhyme}
-            </LineRhymeDiv>
-        ) : null;
-    }
-}
+const LineRhyme = ({ index }) => {
+    const template = useSelector((state) => state.options.template);
+    const hasRhymes =
+        templateList[template].rhymed && templateList[template].lines[index];
+    return hasRhymes ? (
+        <LineRhymeDiv>{templateList[template].lines[index].rhyme}</LineRhymeDiv>
+    ) : null;
+};
 
-const mapStateToProps = state => ({
-    template: state.options.template
-});
-
-export default connect(mapStateToProps)(LineRhyme);
+export default LineRhyme;

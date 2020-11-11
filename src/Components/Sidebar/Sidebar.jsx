@@ -1,32 +1,24 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleOption } from "actions";
 
 import {
     SidebarDiv,
     SidebarTitle,
     SidebarClose,
-    SidebarContent
+    SidebarContent,
 } from "./SidebarStyle";
 import SidebarContentText from "./SidebarContentText";
 
-const mapStateToProps = state => ({
-    showSidebar: state.options.showSidebar
-});
+const Sidebar = () => {
+    const showSidebar = useSelector((state) => state.options.showSidebar);
+    const dispatch = useDispatch();
 
-const mapDispatchToProps = {
-    toggleOption: option => toggleOption(option)
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(({ showSidebar, toggleOption }) => {
     return showSidebar ? (
         <SidebarDiv>
             <SidebarTitle>
                 <SidebarClose
-                    onClick={() => toggleOption("showSidebar", false)}
+                    onClick={() => dispatch(toggleOption("showSidebar", false))}
                 >
                     Close
                 </SidebarClose>
@@ -38,4 +30,6 @@ export default connect(
     ) : (
         false
     );
-});
+};
+
+export default Sidebar;

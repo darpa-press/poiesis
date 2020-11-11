@@ -7,19 +7,19 @@ class HotKeys extends React.Component {
     hot_keys = {
         "ctrl+a": {
             priority: 1000,
-            handler: this.props.toggleAnalysis
+            handler: this.props.toggleAnalysis,
         },
         "ctrl+n": {
             priority: 1000,
-            handler: this.props.fetchPrefill
+            handler: this.props.fetchPrefill,
         },
         "meta+s": {
             priority: 1000,
-            handler: e => {
+            handler: (e) => {
                 e.preventDefault();
                 this.props.handleSave(this.props.lines);
-            }
-        }
+            },
+        },
     };
 
     render() {
@@ -28,18 +28,18 @@ class HotKeys extends React.Component {
 }
 
 export default connect(
-    state => ({
-        lines: state.lines
+    (state) => ({
+        lines: state.lines,
     }),
     {
-        toggleAnalysis: e => {
+        toggleAnalysis: (e) => {
             e.preventDefault();
             return toggleOption("showAnalysis");
         },
-        fetchPrefill: e => {
+        fetchPrefill: (e) => {
             e.preventDefault();
             return fetchPrefill(false);
         },
-        handleSave: saveLines => handleSave(saveLines)
+        handleSave: (saveLines) => handleSave(saveLines),
     }
 )(hotkeys(HotKeys));

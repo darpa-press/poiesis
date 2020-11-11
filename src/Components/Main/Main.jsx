@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import Line from "Components/Line/Line";
 import TextEditor from "Components/TextEditor/TextEditor";
 
@@ -20,48 +20,36 @@ const Lines = styled.div`
     flex: 1 1 100%;
 `;
 
-class Main extends React.PureComponent {
-    render() {
-        const {
-            font,
-            isProseMode,
-            lines,
-            linesAnalysis,
-            showAnalysis,
-            template
-        } = this.props;
-        return (
-            <MainDiv>
-                <Wrapper>
-                    {!isProseMode && (
-                        <Lines>
-                            {lines.map((line, index) => (
-                                <Line
-                                    key={index}
-                                    index={index}
-                                    line={line}
-                                    analysis={linesAnalysis[index]}
-                                    font={font}
-                                    showAnalysis={showAnalysis}
-                                    template={template}
-                                />
-                            ))}
-                        </Lines>
-                    )}
-                    <TextEditor />
-                </Wrapper>
-            </MainDiv>
-        );
-    }
-}
+const Main = () => {
+    const font = useSelector((state) => state.options.font);
+    const isProseMode = useSelector((state) => state.options.isProseMode);
+    const lines = useSelector((state) => state.lines);
+    const linesAnalysis = useSelector((state) => state.analysis);
+    const template = useSelector((state) => state.options.template);
+    const showAnalysis = useSelector((state) => state.options.showAnalysis);
 
-const mapStateToProps = state => ({
-    lines: state.lines,
-    linesAnalysis: state.analysis,
-    font: state.options.font,
-    template: state.options.template,
-    showAnalysis: state.options.showAnalysis,
-    isProseMode: state.options.isProseMode
-});
+    return (
+        <MainDiv>
+            <Wrapper>
+                {!isProseMode && (
+                    <Lines>
+                        {lines.map((line, index) => (
+                            <Line
+                                key={index}
+                                index={index}
+                                line={line}
+                                analysis={linesAnalysis[index]}
+                                font={font}
+                                showAnalysis={showAnalysis}
+                                template={template}
+                            />
+                        ))}
+                    </Lines>
+                )}
+                <TextEditor />
+            </Wrapper>
+        </MainDiv>
+    );
+};
 
-export default connect(mapStateToProps)(Main);
+export default Main;

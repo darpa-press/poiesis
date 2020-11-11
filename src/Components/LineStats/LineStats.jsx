@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { templateList } from "Components/Templates/templateList";
 
 const LineStatsDiv = styled.div`
-    opacity: ${props => (props.showAnalysis ? "1" : "0")};
+    opacity: ${(props) => (props.showAnalysis ? "1" : "0")};
     display: flex;
     font-size: 12px; /* use only PX values for these */
     font-weight: 600;
@@ -26,37 +26,32 @@ const TemplateNo = styled.div`
     margin-right: 1em;
 `;
 
-class LineStats extends React.Component {
-    render() {
-        const { index, showAnalysis, analysis, template } = this.props;
+const LineStats = ({ index, analysis }) => {
+    const template = useSelector((state) => state.options.template);
+    const showAnalysis = useSelector((state) => state.options.showAnalysis);
 
-        let actualSyllables =
-            analysis && analysis.noOfSyllables && analysis.noOfSyllables !== 0
-                ? analysis.noOfSyllables
-                : null;
+    let actualSyllables =
+        analysis && analysis.noOfSyllables && analysis.noOfSyllables !== 0
+            ? analysis.noOfSyllables
+            : null;
 
-        const templateLine =
-            template &&
-            ((templateList[template].fixedLines &&
-                templateList[template].lines[index]) ||
-                (!templateList[template].fixedLines &&
-                    templateList[template].lines[0]));
-        let templateSyllables =
-            templateLine && templateLine.syllables
-                ? templateLine.syllables.replace("|", "").length
-                : false;
+    const templateLine =
+        template &&
+        ((templateList[template].fixedLines &&
+            templateList[template].lines[index]) ||
+            (!templateList[template].fixedLines &&
+                templateList[template].lines[0]));
+    let templateSyllables =
+        templateLine && templateLine.syllables
+            ? templateLine.syllables.replace("|", "").length
+            : false;
 
-        return (
-            <LineStatsDiv showAnalysis={showAnalysis}>
-                <TemplateNo>{templateSyllables}</TemplateNo>
-                <ActualNo>{actualSyllables}</ActualNo>
-            </LineStatsDiv>
-        );
-    }
-}
+    return (
+        <LineStatsDiv showAnalysis={showAnalysis}>
+            <TemplateNo>{templateSyllables}</TemplateNo>
+            <ActualNo>{actualSyllables}</ActualNo>
+        </LineStatsDiv>
+    );
+};
 
-const mapStateToProps = state => ({
-    template: state.options.template
-});
-
-export default connect(mapStateToProps)(LineStats);
+export default LineStats;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-// import stressBreak from "./stressBreak.svg";
+import stressNotSure from "./stressBreak.svg";
 import stressSoft from "./stressSoft.svg";
 import stressStrong from "./stressStrong.svg";
 
@@ -43,13 +43,15 @@ export class LineStresses extends React.PureComponent {
                     return (
                         <StressItem key={stressIndex}>
                             <StressItemNormal>
-                                {(stress === "P" || stress === "U") && (
+                                {stress && (
                                     <img
                                         alt=""
                                         src={
                                             stress === "P"
                                                 ? stressStrong
-                                                : stressSoft
+                                                : stress === "U"
+                                                ? stressSoft
+                                                : stressNotSure
                                         }
                                         height="16"
                                         width="16"

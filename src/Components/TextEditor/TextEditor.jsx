@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import usePrevious from "@hooks/previous";
-import { connect, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { updateLines, compareLines } from "actions";
 import { TextArea } from "./TextAreaStyle";
 
-const handleKeyPress = (event, ref, updateLines) => {
+const handleKeyPress = (event, ref, updateLines, dispatch) => {
     if (event.key === "Tab") {
         event.preventDefault();
         const start = event.target.selectionStart,
@@ -16,11 +16,11 @@ const handleKeyPress = (event, ref, updateLines) => {
         event.target.value = newString;
         ref.current.selectionStart = start + 4;
         ref.current.selectionEnd = start + 4;
-        updateLines(event.target.value.split("\n")); // gotta fire manually
+        dispatch(updateLines(event.target.value.split("\n"))); // gotta fire manually
     }
 };
 
-const TextEditor = ({ updateLines }) => {
+const TextEditor = () => {
     const analysis = useSelector((state) => state.analysis);
     const lines = useSelector((state) => state.lines);
     const loadingPrefill = useSelector((state) => state.loading.loadingPrefill);
@@ -29,6 +29,8 @@ const TextEditor = ({ updateLines }) => {
     const font = useSelector((state) => state.options.font);
     const isProseMode = useSelector((state) => state.options.isProseMode);
 
+    const dispatch = useDispatch();
+
     const [proseModeScrollHeight, setProseModeScrollHeight] = useState(360);
 
     const prevLines = usePrevious(lines);
@@ -36,9 +38,9 @@ const TextEditor = ({ updateLines }) => {
 
     useEffect(() => {
         if (prevLines && prevAnalysis) {
-            compareLines(prevLines, prevAnalysis, lines);
+            dispatch(compareLines(prevLines, prevAnalysis, lines));
         }
-    }, [lines, prevLines, prevAnalysis]);
+    }, [lines, prevLines, prevAnalysis, dispatch]);
 
     const calculateHeightInProseMode = (e) => {
         setProseModeScrollHeight(e.target.scrollHeight);
@@ -50,12 +52,12 @@ const TextEditor = ({ updateLines }) => {
             autoFocus
             font={font}
             noOfLines={lines.length}
-            onChange={(e) => updateLines(e.target.value.split("\n"))}
+            onChange={(e) => dispatch(updateLines(e.target.value.split("\n")))}
             onKeyDown={(e) => {
                 if (isProseMode) {
                     calculateHeightInProseMode(e);
                 }
-                handleKeyPress(e, textareaRef, updateLines);
+                handleKeyPress(e, textareaRef, updateLines, dispatch);
             }}
             placeholder={loadingPrefill ? "Conjuring..." : placeholder}
             proseModeScrollHeight={proseModeScrollHeight}
@@ -70,18 +72,4 @@ const TextEditor = ({ updateLines }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    analysis: state.analysis,
-    lines: state.lines,
-    loadingPrefill: state.loading.loadingPrefill,
-    placeholder: state.placeholder,
-    showAnalysis: state.options.showAnalysis,
-});
-
-const mapDispatchToProps = {
-    compareLines: (oldLines, oldAnalysis, newLines) =>
-        compareLines(oldLines, oldAnalysis, newLines),
-    updateLines: (lines) => updateLines(lines),
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TextEditor);
+export default TextEditor;
