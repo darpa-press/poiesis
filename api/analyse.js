@@ -1,5 +1,5 @@
 const app = require("../app");
-const { analyseFunction } = require("../functions/analyseFunction");
+const { analyseFunction } = require("./functions/analyseFunction");
 
 app.post("*", analyseFunction);
 

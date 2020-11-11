@@ -7,21 +7,20 @@ const maxRandom = 6000;
 const entities = new Entities();
 
 function streamToPromise(stream) {
-    return new Promise(function(resolve, reject) {
-        // resolve with location of saved file
+    return new Promise(function (resolve, reject) {
         stream.on("end", resolve(stream.dests[0].path));
         stream.on("error", reject);
     });
 }
 
-const getRandomLine = async filename => {
+const getRandomLine = async (filename) => {
     const randomToGet = Math.floor(Math.random() * maxRandom);
     let i = 0;
     let line = null;
     const lines = fs.createReadStream(filename).pipe(csv());
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         lines
-            .on("data", data => {
+            .on("data", (data) => {
                 if (i === randomToGet) {
                     line = data;
                     resolve(line);
@@ -29,12 +28,12 @@ const getRandomLine = async filename => {
                 }
                 i++;
             })
-            .on("end", function() {
+            .on("end", function () {
                 //console.log("end", randomToGet, line);
                 //resolve(line);
                 //some final operation
             })
-            .on("close", function() {
+            .on("close", function () {
                 //console.log("close", randomToGet, line);
                 //resolve(line);
                 //some final operation
@@ -43,10 +42,7 @@ const getRandomLine = async filename => {
 };
 
 async function prefillFunction(req, res, next) {
-    let poem = await getRandomLine(
-        `${__dirname}/poetry.csv`
-        //path.join(__dirname, "../data") + "/kaggle_poem_dataset.js"
-    );
+    let poem = await getRandomLine(`${__dirname}/poetry.csv`);
 
     poem.Content = entities.decode(poem.Content);
     res.json(poem);

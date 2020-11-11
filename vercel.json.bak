@@ -22,6 +22,10 @@
             "dest": "/routes/analyse.js"
         },
         {
+            "src": "/api/analyse2",
+            "dest": "/routes/analyse.py"
+        },
+        {
             "src": "/api/prefill",
             "dest": "/routes/prefill.js"
         },

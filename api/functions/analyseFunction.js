@@ -12,7 +12,7 @@ function analyseFunction(req, res, next) {
     const lines = linesText.split("\n");
 
     // analyse each line (map)
-    const linesAnalysed = lines.map(line => {
+    const linesAnalysed = lines.map((line) => {
         line = line
             .replace(/[.,\/#!$%\^&\*;:{}=`~()’"'“”‘’]/g, "")
             .replace(/[\-–—_]/g, " ")
@@ -26,7 +26,7 @@ function analyseFunction(req, res, next) {
     const filterArray = ["", ",", "!", ".", "?", "-", "-", "&"];
 
     // format into word, syllable, stress objects (map again)
-    const linesFormatted = linesAnalysed.map(line => {
+    const linesFormatted = linesAnalysed.map((line) => {
         // save copies
         line.stressesUnformatted = line.stresses;
         line.syllablesUnformatted = line.syllables;
@@ -34,14 +34,14 @@ function analyseFunction(req, res, next) {
         // break first level, remove punctuation
         line.stresses = line.stresses
             .split(/[ ]/)
-            .filter(item => !filterArray.includes(item));
+            .filter((item) => !filterArray.includes(item));
         line.syllables = line.syllables
             .split(/[ ]/)
-            .filter(item => !filterArray.includes(item));
+            .filter((item) => !filterArray.includes(item));
 
         // break second level
-        line.stresses = line.stresses.map(stress => stress.split(/\//));
-        line.syllables = line.syllables.map(syllable => syllable.split(/\//));
+        line.stresses = line.stresses.map((stress) => stress.split(/\//));
+        line.syllables = line.syllables.map((syllable) => syllable.split(/\//));
         line.noOfSyllables = line.syllables.reduce(
             (total, item) => item.length + total,
             0
@@ -50,7 +50,7 @@ function analyseFunction(req, res, next) {
         return {
             stresses: line.stresses,
             syllables: line.syllables,
-            noOfSyllables: line.noOfSyllables
+            noOfSyllables: line.noOfSyllables,
         };
     });
     res.json(linesFormatted);
