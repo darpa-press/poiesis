@@ -52,7 +52,9 @@ export const fetchingAnalysis = (lineIndex, lineText) => ({
 export const fetchAnalysis = (lineIndex, lineText) => (dispatch) => {
     dispatch(fetchingAnalysis(lineIndex, lineText));
     return axios
-        .post("https://poiesis-analyse.darpa.press/", { lines: lineText })
+        .post("https://darpa-poiesis-analyse.herokuapp.com/", {
+            lines: lineText,
+        })
         .then((response) => {
             dispatch({
                 type: UPDATE_ANALYSIS,
