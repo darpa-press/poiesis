@@ -6,6 +6,7 @@
         "react-scripts": "^4.0.0"
     },
     "dependencies": {
+        "@hooks/previous": "^0.1.0",
         "awesome-debounce-promise": "^2.1.0",
         "axios": "^0.18.0",
         "csv-parser": "^2.3.3",

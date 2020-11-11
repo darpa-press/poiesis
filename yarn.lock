@@ -1119,6 +1119,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@hooks/previous@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@hooks/previous/-/previous-0.1.0.tgz#15c6b6f1ec41a71aecce4d1bd7587b22151d1500"
+  integrity sha512-o4DQUmUgrr6hi31GjFMhS8PZQi4Rofbl0eBpuy6cz6QlH4SYcCxzgRe+vQIPJCdpB86D52VgbAnjDIkCHSQD2Q==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"

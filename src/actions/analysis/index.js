@@ -50,6 +50,7 @@ export const fetchingAnalysis = (lineIndex, lineText) => ({
 });
 
 export const fetchAnalysis = (lineIndex, lineText) => (dispatch) => {
+    console.log("getting");
     dispatch(fetchingAnalysis(lineIndex, lineText));
     return axios
         .post("https://darpa-poiesis-analyse.herokuapp.com/", {

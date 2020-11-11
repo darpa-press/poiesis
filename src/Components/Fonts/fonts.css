@@ -1,0 +1,72 @@
+@font-face {
+    font-family: "DovesType";
+    src: url("./doves-web.woff2") format("woff2"),
+        url("./doves-web.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "MS PMincho";
+    src: url("./mspmincho-regular-webfont.woff2") format("woff2"),
+        url("./mspmincho-regular-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "LTCRemingtonTypewriterW05-It";
+    src: url("./remington-webfont.woff2") format("woff2"),
+        url("./remington-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "LTUnivers-BasicRegular";
+    src: url("./ltunivers-webfont.woff2") format("woff2"),
+        url("./ltunivers-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Schulschrift";
+    src: url("./Schulschrift.woff2") format("woff2"),
+        url("./Schulschrift.woff") format("woff");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Williams Caslon";
+    src: url("./Williams_Caslon_Text-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    src: url("./Inter-Medium.woff2") format("woff2"),
+        url("./Inter-Medium.woff") format("woff");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    src: url("./Inter-SemiBold.woff2") format("woff2"),
+        url("./Inter-SemiBold.woff") format("woff");
+}
+
+@supports (font-variation-settings: normal) {
+    @font-face {
+        font-family: "Inter var";
+        font-weight: 100 900;
+        font-style: normal;
+        font-named-instance: "Regular";
+        src: url("./Inter-upright.var.woff2") format("woff2");
+    }
+}

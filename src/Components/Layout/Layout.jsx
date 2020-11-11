@@ -3,12 +3,14 @@ import styled from "styled-components";
 
 import GlobalStyles from "./GlobalStyles";
 import { PoemTitleConnected } from "./Title";
-import { FontFaces, PreloadFonts } from "Components/Fonts/Fonts";
+import { PreloadFonts } from "Components/Fonts/Fonts";
 import Main from "Components/Main/Main";
 import Menubar from "Components/Menubar/Menubar";
 import Sidebar from "Components/Sidebar/Sidebar";
 import FileInput from "Components/FileInput/FileInput";
 import HotKeys from "Components/HotKeys/HotKeys";
+
+import "Components/Fonts/fonts.css";
 
 const LayoutDiv = styled.div`
     -webkit-font-smoothing: antialiased;
@@ -30,7 +32,6 @@ class Layout extends React.PureComponent {
                     <GlobalStyles />
                     <PreloadFonts />
                     <HotKeys />
-                    <FontFaces />
                     <PoemTitleConnected />
                 </>
                 <LayoutDiv>
