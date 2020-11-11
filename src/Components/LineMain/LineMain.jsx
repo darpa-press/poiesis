@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { LineWord } from "./LineWord";
@@ -13,7 +14,12 @@ const LineWords = styled.div`
     position: relative;
 `;
 
-const LineMain = ({ font, showAnalysis, analysis, line }) => {
+const LineMain = ({ index }) => {
+    const font = useSelector((state) => state.options.font);
+    const showAnalysis = useSelector((state) => state.options.showAnalysis);
+    const analysis = useSelector((state) => state.analysis.lines[index]);
+    const line = useSelector((state) => state.lines[index]);
+
     // 'line' is the string of the line
     let wordArray = line.match(/[^\s-–—_]+[\s-–—_]*/g);
 

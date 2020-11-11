@@ -21,7 +21,7 @@ const handleKeyPress = (event, ref, updateLines, dispatch) => {
 };
 
 const TextEditor = () => {
-    const analysis = useSelector((state) => state.analysis);
+    const analysis = useSelector((state) => state.analysis.lines);
     const lines = useSelector((state) => state.lines);
     const loadingPrefill = useSelector((state) => state.loading.loadingPrefill);
     const placeholder = useSelector((state) => state.placeholder);
@@ -39,6 +39,14 @@ const TextEditor = () => {
     useEffect(() => {
         if (prevLines && prevAnalysis) {
             dispatch(compareLines(prevLines, prevAnalysis, lines));
+        } else {
+            dispatch(
+                compareLines(
+                    lines.map((line) => []),
+                    lines.map((line) => []),
+                    lines
+                )
+            );
         }
     }, [lines, prevLines, prevAnalysis, dispatch]);
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import LineStats from "Components/LineStats/LineStats";
@@ -18,33 +19,17 @@ const LineDiv = styled.div`
     user-select: none;
 `;
 
-class Line extends React.PureComponent {
-    render() {
-        const {
-            index,
-            line,
-            analysis,
-            showAnalysis,
-            font,
-            template,
-        } = this.props;
-        return (
-            <LineDiv className="main-line" showAnalysis={showAnalysis}>
-                <LineStats
-                    index={index}
-                    analysis={analysis}
-                    showAnalysis={showAnalysis}
-                />
-                <LineMain
-                    line={line}
-                    analysis={analysis}
-                    showAnalysis={showAnalysis}
-                    font={font}
-                />
-                {template && <LineRhyme index={index} />}
-            </LineDiv>
-        );
-    }
-}
+const Line = ({ index }) => {
+    const template = useSelector((state) => state.options.template);
+    const showAnalysis = useSelector((state) => state.options.showAnalysis);
+
+    return (
+        <LineDiv className="main-line" showAnalysis={showAnalysis}>
+            <LineStats index={index} />
+            <LineMain index={index} />
+            {template && <LineRhyme index={index} />}
+        </LineDiv>
+    );
+};
 
 export default Line;

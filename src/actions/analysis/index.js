@@ -43,15 +43,16 @@ export const compareLines = (oldLines, oldAnalysis, newLines) => {
     }
 };
 
-export const fetchingAnalysis = (lineIndex, lineText) => ({
+export const fetchingAnalysis = (lineIndex, lineText, token) => ({
     type: FETCHING_ANALYSIS,
     lineIndex: lineIndex,
     lineText: lineText,
+    token: token,
 });
 
 export const fetchAnalysis = (lineIndex, lineText) => (dispatch) => {
-    console.log("getting");
-    dispatch(fetchingAnalysis(lineIndex, lineText));
+    const token = Math.random().toString(36).substr(2);
+    dispatch(fetchingAnalysis(lineIndex, lineText, token));
     return axios
         .post("https://darpa-poiesis-analyse.herokuapp.com/", {
             lines: lineText,
@@ -61,6 +62,7 @@ export const fetchAnalysis = (lineIndex, lineText) => (dispatch) => {
                 type: UPDATE_ANALYSIS,
                 lineIndex: lineIndex,
                 analysis: response.data.lines[0],
+                token: token,
             });
         });
 };

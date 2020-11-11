@@ -29,12 +29,10 @@ const getRandomLine = async (filename) => {
                 i++;
             })
             .on("end", function () {
-                //console.log("end", randomToGet, line);
                 //resolve(line);
                 //some final operation
             })
             .on("close", function () {
-                //console.log("close", randomToGet, line);
                 //resolve(line);
                 //some final operation
             });

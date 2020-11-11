@@ -21,28 +21,15 @@ const Lines = styled.div`
 `;
 
 const Main = () => {
-    const font = useSelector((state) => state.options.font);
     const isProseMode = useSelector((state) => state.options.isProseMode);
     const lines = useSelector((state) => state.lines);
-    const linesAnalysis = useSelector((state) => state.analysis);
-    const template = useSelector((state) => state.options.template);
-    const showAnalysis = useSelector((state) => state.options.showAnalysis);
-
     return (
         <MainDiv>
             <Wrapper>
                 {!isProseMode && (
                     <Lines>
                         {lines.map((line, index) => (
-                            <Line
-                                key={index}
-                                index={index}
-                                line={line}
-                                analysis={linesAnalysis[index]}
-                                font={font}
-                                showAnalysis={showAnalysis}
-                                template={template}
-                            />
+                            <Line key={index} index={index} />
                         ))}
                     </Lines>
                 )}
