@@ -4,7 +4,7 @@ import { fontList } from "Components/Fonts/Fonts";
 import {
     LineStresses,
     StressItemNormal,
-    StressItemHover
+    StressItemHover,
 } from "./LineStresses";
 
 export const LineWordDiv = styled.div`
@@ -30,39 +30,33 @@ export const LineWordDiv = styled.div`
 
 export const LineWordWord = styled.div`
     color: #333;
-    font-family: "${props => props.font}";
-    font-size: ${props =>
+    font-family: "${(props) => props.font}";
+    font-size: ${(props) =>
         fontList[props.font] ? fontList[props.font].size : "2rem"};
-    font-weight: ${props =>
+    font-weight: ${(props) =>
         fontList[props.font] ? fontList[props.font].fontWeight : "500"};
     line-height: 3rem;
     position: relative;
-    top: ${props =>
+    top: ${(props) =>
         fontList[props.font] ? fontList[props.font].baselineAdjust : "1rem"};
     /* flex: 0 0 3rem; */
     white-space: pre;
 `;
 
-export class LineWord extends React.PureComponent {
-    render() {
-        const {
-            showAnalysis,
-            word,
-            wordAnalysis,
-            font,
-            syllableCount
-        } = this.props;
-
-        return (
-            <LineWordDiv>
-                {wordAnalysis && showAnalysis && (
-                    <LineStresses
-                        syllableCount={syllableCount}
-                        wordAnalysis={wordAnalysis}
-                    />
-                )}
-                <LineWordWord font={font}>{word}</LineWordWord>
-            </LineWordDiv>
-        );
-    }
-}
+export const LineWord = ({
+    showAnalysis,
+    word,
+    wordAnalysis,
+    font,
+    syllableCount,
+}) => (
+    <LineWordDiv>
+        {wordAnalysis && showAnalysis && (
+            <LineStresses
+                syllableCount={syllableCount}
+                wordAnalysis={wordAnalysis}
+            />
+        )}
+        <LineWordWord font={font}>{word}</LineWordWord>
+    </LineWordDiv>
+);

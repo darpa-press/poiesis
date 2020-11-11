@@ -11,10 +11,17 @@ class handler(BaseHTTPRequestHandler):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
 
+        print(prosodic.config)
+        prosodic.config['print_to_screen'] = 0
+        prosodic.config['en_TTS_cache'] = True
+
+        processedLines = []
+
+        '''
         lines = json.loads(post_data)['lines']
         text = prosodic.Text(lines)
         text.parse()
-        processedLines = []
+        
         for line in text.lines():
             processedLines.append(
                 {
@@ -22,6 +29,7 @@ class handler(BaseHTTPRequestHandler):
                     'noOfSyllables': len(line.syllables())
                 }
             )
+        '''
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
@@ -30,16 +38,5 @@ class handler(BaseHTTPRequestHandler):
             "status": 200,
             "lines": processedLines
         }).encode('utf-8'))
-        return
 
-    def do_GET(self):
-
-        text = prosodic.Text("Shall I compare thee to a summer's day?")
-        text.parse()
-
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
-        self.wfile.write(
-            str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode())
         return

@@ -23,7 +23,7 @@ class TextEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            proseModeScrollHeight: 360
+            proseModeScrollHeight: 360,
         };
     }
     componentDidUpdate(prevProps) {
@@ -40,7 +40,6 @@ class TextEditor extends React.Component {
 
     calculateHeightInProseMode(e) {
         this.setState({ proseModeScrollHeight: e.target.scrollHeight });
-        console.log(e.target.scrollHeight);
     }
 
     render() {
@@ -51,7 +50,7 @@ class TextEditor extends React.Component {
             loadingPrefill,
             placeholder,
             showAnalysis,
-            updateLines
+            updateLines,
         } = this.props;
         const { proseModeScrollHeight } = this.state;
 
@@ -61,8 +60,8 @@ class TextEditor extends React.Component {
                 autoFocus
                 font={font}
                 noOfLines={lines.length}
-                onChange={e => updateLines(e.target.value.split("\n"))}
-                onKeyDown={e => {
+                onChange={(e) => updateLines(e.target.value.split("\n"))}
+                onKeyDown={(e) => {
                     if (isProseMode) {
                         this.calculateHeightInProseMode(e);
                     }
@@ -82,23 +81,20 @@ class TextEditor extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     analysis: state.analysis,
     font: state.options.font,
     isProseMode: state.options.isProseMode,
     lines: state.lines,
     loadingPrefill: state.loading.loadingPrefill,
     placeholder: state.placeholder,
-    showAnalysis: state.options.showAnalysis
+    showAnalysis: state.options.showAnalysis,
 });
 
 const mapDispatchToProps = {
     compareLines: (oldLines, oldAnalysis, newLines) =>
         compareLines(oldLines, oldAnalysis, newLines),
-    updateLines: lines => updateLines(lines)
+    updateLines: (lines) => updateLines(lines),
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TextEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(TextEditor);

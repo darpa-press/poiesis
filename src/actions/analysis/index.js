@@ -8,7 +8,7 @@ export const compareLines = (oldLines, oldAnalysis, newLines) => {
     const emptyLine = {
         noOfSyllables: 0,
         stresses: [],
-        syllables: []
+        syllables: [],
     };
 
     const newActions = newLines
@@ -33,11 +33,11 @@ export const compareLines = (oldLines, oldAnalysis, newLines) => {
                 return null;
             }
         })
-        .filter(a => a !== null);
+        .filter((a) => a !== null);
 
     if (newActions.length > 0) {
-        return dispatch =>
-            newActions.filter(a => a !== null).map(a => dispatch(a));
+        return (dispatch) =>
+            newActions.filter((a) => a !== null).map((a) => dispatch(a));
     } else {
         return { type: NO_ANALYSIS_CHANGE };
     }
@@ -46,16 +46,16 @@ export const compareLines = (oldLines, oldAnalysis, newLines) => {
 export const fetchingAnalysis = (lineIndex, lineText) => ({
     type: FETCHING_ANALYSIS,
     lineIndex: lineIndex,
-    lineText: lineText
+    lineText: lineText,
 });
 
-export const fetchAnalysis = (lineIndex, lineText) => dispatch => {
+export const fetchAnalysis = (lineIndex, lineText) => (dispatch) => {
     dispatch(fetchingAnalysis(lineIndex, lineText));
-    return axios.post("/api/analyse", { lines: lineText }).then(response => {
+    return axios.post("/api/analyse", { lines: lineText }).then((response) => {
         dispatch({
             type: UPDATE_ANALYSIS,
             lineIndex: lineIndex,
-            analysis: response.data[0]
+            analysis: response.data.lines[0],
         });
     });
 };
@@ -63,5 +63,5 @@ export const fetchAnalysis = (lineIndex, lineText) => dispatch => {
 export const updateAnalysis = (lineIndex, analysis) => ({
     type: UPDATE_ANALYSIS,
     lineIndex,
-    analysis
+    analysis,
 });

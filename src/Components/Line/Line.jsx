@@ -7,7 +7,7 @@ import LineRhyme from "Components/LineRhyme/LineRhyme";
 
 const LineDiv = styled.div`
     border-bottom: 1px solid rgba(255, 72, 72, 0.25);
-    border-bottom-color: ${props =>
+    border-bottom-color: ${(props) =>
         props.showAnalysis ? "rgba(41,137,252,.25)" : "transparent"};
     display: flex;
     flex-direction: row;
@@ -26,7 +26,7 @@ class Line extends React.PureComponent {
             analysis,
             showAnalysis,
             font,
-            template
+            template,
         } = this.props;
         return (
             <LineDiv className="main-line" showAnalysis={showAnalysis}>

@@ -43,11 +43,11 @@ export class LineStresses extends React.PureComponent {
                     return (
                         <StressItem key={stressIndex}>
                             <StressItemNormal>
-                                {(stress === "1" || stress === "0") && (
+                                {(stress === "P" || stress === "U") && (
                                     <img
                                         alt=""
                                         src={
-                                            stress === "1"
+                                            stress === "P"
                                                 ? stressStrong
                                                 : stressSoft
                                         }

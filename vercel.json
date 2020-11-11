@@ -1,0 +1,7 @@
+{
+    "functions": {
+        "api/analyse.py": {
+            "excludeFiles": "{{public,build,src,node_modules}/**,**/*.dylib,**/*.pyc,**/__pycache__,**/doc/,**/test,**/tests/,**/{pip,setuptools,joblib,*.dist-info}/**,**/{.dylibs,sparse,special,cluster,constants,fftpack,io,interpolate,ndimage,odr,signal,spatial,weave}}/**"
+        }
+    }
+}
