@@ -7,8 +7,7 @@ const NO_ANALYSIS_CHANGE = "NO_ANALYSIS_CHANGE";
 export const compareLines = (oldLines, oldAnalysis, newLines) => {
     const emptyLine = {
         noOfSyllables: 0,
-        stresses: [],
-        syllables: [],
+        words: [],
     };
 
     const newActions = newLines
@@ -17,13 +16,24 @@ export const compareLines = (oldLines, oldAnalysis, newLines) => {
                 // line has changed
                 if (line.trim() === "") {
                     // line is empty, send empty analysis
-                    return updateAnalysis(index, emptyLine);
+                    console.log("empty", index, emptyLine);
+                    return updateAnalysis(index, emptyLine, false, true);
                 } else if (oldLines[index - 1] === line) {
                     // send previous analysis
-                    return updateAnalysis(index, oldAnalysis[index - 1]);
+                    return updateAnalysis(
+                        index,
+                        oldAnalysis[index - 1],
+                        false,
+                        true
+                    );
                 } else if (oldLines[index + 1] === line) {
                     // send new analysis
-                    return updateAnalysis(index, oldAnalysis[index + 1]);
+                    return updateAnalysis(
+                        index,
+                        oldAnalysis[index + 1],
+                        false,
+                        true
+                    );
                 } else {
                     // doesn't match either, do a new analysis
                     return fetchAnalysis(index, line);
@@ -63,12 +73,16 @@ export const fetchAnalysis = (lineIndex, lineText) => (dispatch) => {
                 lineIndex: lineIndex,
                 analysis: response.data.lines[0],
                 token: token,
+                isMoved: false,
             });
         });
 };
 
-export const updateAnalysis = (lineIndex, analysis) => ({
+// see above not used for axios for some reason (could refactor)
+export const updateAnalysis = (lineIndex, analysis, token, isMoved) => ({
     type: UPDATE_ANALYSIS,
     lineIndex,
     analysis,
+    token,
+    isMoved,
 });

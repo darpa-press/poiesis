@@ -8,6 +8,7 @@ function analysisReducer(state = INITIAL_STATE, action) {
             newState = { ...state };
 
             if (
+                action.isMoved ||
                 !newState.tokens[action.lineIndex] ||
                 action.token === newState.tokens[action.lineIndex]
             ) {
