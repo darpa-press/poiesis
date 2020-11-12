@@ -11,8 +11,6 @@ const SidebarStats = () => {
                     {stats.meter_type_scheme}
                 </span>{" "}
                 {stats.beat_scheme_repr}
-                <br />
-                {stats.beat_scheme_type && `(${stats.beat_scheme_type})`}
             </p>
             {stats.rhyme_scheme_accuracy > 0.2 && (
                 <p>
