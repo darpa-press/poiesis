@@ -14,10 +14,10 @@ const SidebarStats = () => {
                 <br />
                 {stats.beat_scheme_type && `(${stats.beat_scheme_type})`}
             </p>
-            {stats.rhyme_scheme_accuracy > 0 && (
+            {stats.rhyme_scheme_accuracy > 0.2 && (
                 <p>
                     {stats.rhyme_scheme_name}
-                    {stats.rhyme_scheme_accuracy > 0.6 ? ", sort of" : ""}{" "}
+                    {stats.rhyme_scheme_accuracy < 0.6 ? ", sort of" : ""}{" "}
                     {stats.rhyme_scheme_form &&
                         `(${stats.rhyme_scheme_form.toUpperCase()})`}
                 </p>
