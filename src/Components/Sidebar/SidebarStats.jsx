@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 const SidebarStats = () => {
     const stats = useSelector((state) => state.analysis.stats);
+    if (!stats) return false;
     return (
         <>
             <p>
