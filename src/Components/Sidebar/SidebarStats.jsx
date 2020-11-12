@@ -16,7 +16,8 @@ const SidebarStats = () => {
             </p>
             {stats.rhyme_scheme_accuracy > 0 && (
                 <p>
-                    {stats.rhyme_scheme_name}{" "}
+                    {stats.rhyme_scheme_name}
+                    {stats.rhyme_scheme_accuracy > 0.6 ? ", sort of" : ""}{" "}
                     {stats.rhyme_scheme_form &&
                         `(${stats.rhyme_scheme_form.toUpperCase()})`}
                 </p>
