@@ -16,7 +16,6 @@ export const compareLines = (oldLines, oldAnalysis, newLines) => {
                 // line has changed
                 if (line.trim() === "") {
                     // line is empty, send empty analysis
-                    console.log("empty", index, emptyLine);
                     return updateAnalysis(index, emptyLine, false, true);
                 } else if (oldLines[index - 1] === line) {
                     // send previous analysis

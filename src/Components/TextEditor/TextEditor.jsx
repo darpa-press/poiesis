@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import usePrevious from "@hooks/previous";
 import { useSelector, useDispatch } from "react-redux";
 import { updateLines, compareLines } from "actions";
@@ -31,8 +31,6 @@ const TextEditor = () => {
 
     const dispatch = useDispatch();
 
-    const [proseModeScrollHeight, setProseModeScrollHeight] = useState(360);
-
     const prevLines = usePrevious(lines);
     const prevAnalysis = usePrevious(analysis);
 
@@ -50,16 +48,29 @@ const TextEditor = () => {
         }
     }, [lines, prevLines, prevAnalysis, dispatch]);
 
-    const calculateHeightInProseMode = (e) => {
-        setProseModeScrollHeight(e.target.scrollHeight);
+    const textareaRef = useRef();
+
+    useEffect(() => {
+        if (!isProseMode) {
+            textareaRef.current.removeAttribute("style");
+        } else {
+            textareaRef.current.style.height = "0px";
+            const scrollHeight = Number(textareaRef.current.scrollHeight);
+            textareaRef.current.style.height = `calc(${scrollHeight}px + 3.8rem)`;
+        }
+    }, [isProseMode, textareaRef]);
+
+    const calculateHeightInProseMode = () => {
+        textareaRef.current.style.height = "0px";
+        const scrollHeight = Number(textareaRef.current.scrollHeight);
+        textareaRef.current.style.height = `calc(${scrollHeight}px + 3.8rem)`;
     };
 
-    const textareaRef = React.createRef();
     return (
         <TextArea
             autoFocus
             font={font}
-            noOfLines={lines.length}
+            noOfLines={isProseMode ? null : lines.length}
             onChange={(e) => dispatch(updateLines(e.target.value.split("\n")))}
             onKeyDown={(e) => {
                 if (isProseMode) {
@@ -68,7 +79,6 @@ const TextEditor = () => {
                 handleKeyPress(e, textareaRef, updateLines, dispatch);
             }}
             placeholder={loadingPrefill ? "Conjuring..." : placeholder}
-            proseModeScrollHeight={proseModeScrollHeight}
             ref={textareaRef}
             showPlaceholder={lines.join("") === ""}
             showText={isProseMode}
