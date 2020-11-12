@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const FETCHING_ANALYSIS = "FETCHING_ANALYSIS";
+const FETCHING_STATS = "FETCHING_STATS";
 const UPDATE_ANALYSIS = "UPDATE_ANALYSIS";
+const UPDATE_STATS = "UPDATE_STATS";
 const NO_ANALYSIS_CHANGE = "NO_ANALYSIS_CHANGE";
 
 export const compareLines = (oldLines, oldAnalysis, newLines) => {
@@ -57,6 +59,31 @@ export const fetchingAnalysis = (lineIndex, lineText, token) => ({
     lineIndex: lineIndex,
     lineText: lineText,
     token: token,
+});
+
+export const fetchingStats = (token) => ({
+    type: FETCHING_STATS,
+    token: token,
+});
+
+export const fetchStats = (lines) => (dispatch) => {
+    console.log("fired");
+    const token = Math.random().toString(36).substr(2);
+    dispatch(fetchingStats(token));
+    return axios
+        .post("https://darpa-poiesis-analyse.herokuapp.com/poesy", {
+            lines: lines,
+        })
+        .then((response) => {
+            dispatch(updateStats(response.data.stats, token));
+        });
+};
+
+// see above not used for axios for some reason (could refactor)
+export const updateStats = (stats, token) => ({
+    type: UPDATE_STATS,
+    stats,
+    token,
 });
 
 export const fetchAnalysis = (lineIndex, lineText) => (dispatch) => {

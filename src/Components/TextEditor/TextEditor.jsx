@@ -1,10 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import usePrevious from "@hooks/previous";
 import { useSelector, useDispatch } from "react-redux";
-import { updateLines, compareLines } from "actions";
+import { updateLines, fetchStats, compareLines } from "actions";
 import { TextArea } from "./TextAreaStyle";
 
-const handleKeyPress = (event, ref, updateLines, dispatch) => {
+const handleKeyPress = (event, ref, updateLines, dispatch, lines) => {
+    if (event.key === " " || event.key === "Enter") {
+        dispatch(fetchStats(lines.join("\n")));
+    }
+
     if (event.key === "Tab") {
         event.preventDefault();
         const start = event.target.selectionStart,
@@ -76,7 +80,7 @@ const TextEditor = () => {
                 if (isProseMode) {
                     calculateHeightInProseMode(e);
                 }
-                handleKeyPress(e, textareaRef, updateLines, dispatch);
+                handleKeyPress(e, textareaRef, updateLines, dispatch, lines);
             }}
             placeholder={loadingPrefill ? "Conjuring..." : placeholder}
             ref={textareaRef}

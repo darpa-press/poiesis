@@ -4,6 +4,11 @@ export {
     updateLines,
     updatePlaceholder,
     updatePrefill,
-    fetchPrefill
+    fetchPrefill,
 } from "./lines";
-export { compareLines, fetchAnalysis, updateAnalysis } from "./analysis";
+export {
+    compareLines,
+    fetchAnalysis,
+    updateAnalysis,
+    fetchStats,
+} from "./analysis";

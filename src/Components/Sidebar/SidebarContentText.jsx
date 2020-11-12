@@ -1,13 +1,16 @@
 import React from "react";
 import stressSoft from "Components/LineMain/stressSoft.svg";
 import stressStrong from "Components/LineMain/stressStrong.svg";
+import stressBreak from "Components/LineMain/stressBreak.svg";
 
-export default () => (
+import SidebarStats from "./SidebarStats";
+
+const Text = () => (
     <>
         <div style={{ flex: 1 }}>
             <p>
-                Poiesis is a still-unfolding tool that might help in writing
-                poetry. It counts, and guesses at the stress, of syllables.
+                Poiesis is a word processor (in development) that might help in
+                writing poetry. It counts syllables and guesses at their stress.
             </p>
             <dl>
                 <dt>
@@ -21,6 +24,12 @@ export default () => (
                 </dt>
                 <dd>Unstressed syllable</dd>
             </dl>
+            <dl>
+                <dt>
+                    <img alt="" src={stressBreak} />
+                </dt>
+                <dd>Not-sure syllable</dd>
+            </dl>
             <p>Hover over the stress icons to see the syllable number.</p>
             <p>Show or hide the analysis with Ctrl-A.</p>
             <p>
@@ -33,6 +42,7 @@ export default () => (
                 like to periodically save your work to txt (File->Save TXT file
                 (Cmd-S)). Your writing is not stored on the server.
             </p>
+            <SidebarStats />
             <p>
                 <a
                     href="//eepurl.com/gp16a1"
@@ -43,6 +53,7 @@ export default () => (
                 </a>
             </p>
         </div>
+
         <p>
             V0.1.3 (15 July 2019)
             <br />
@@ -54,3 +65,5 @@ export default () => (
         </p>
     </>
 );
+
+export default Text;
