@@ -39,12 +39,18 @@ const LineMain = ({ index }) => {
                     wordArray.map((word, wordIndex) => {
                         const space = word.match(/[\s-–—_]+/);
 
+                        const hasAlphanumeric = word.match(/[a-zA-Z0-9]/);
+
                         const wordAnalysis =
+                            hasAlphanumeric &&
                             analysis &&
                             analysis.words &&
                             analysis.words[actualWordIndex] &&
                             analysis.words[actualWordIndex].stress;
-                        actualWordIndex++;
+
+                        if (wordAnalysis) {
+                            actualWordIndex++;
+                        }
 
                         if (
                             wordAnalysis &&
