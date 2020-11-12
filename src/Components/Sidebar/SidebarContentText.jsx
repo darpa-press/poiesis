@@ -55,7 +55,7 @@ const Text = () => (
         </div>
 
         <p>
-            V0.1.3 (15 July 2019)
+            V0.2 (28 October 2020)
             <br />
             Published by{" "}
             <a href="//darpa.press/" rel="noopener noreferrer" target="_blank">
