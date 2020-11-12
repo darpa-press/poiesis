@@ -47,7 +47,7 @@ export class LineStresses extends React.PureComponent {
                                     <img
                                         alt=""
                                         src={
-                                            stress === "P"
+                                            stress === "P" || stress === "S"
                                                 ? stressStrong
                                                 : stress === "U"
                                                 ? stressSoft
