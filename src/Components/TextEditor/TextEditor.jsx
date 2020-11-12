@@ -6,7 +6,7 @@ import { TextArea } from "./TextAreaStyle";
 
 const handleKeyPress = (event, ref, updateLines, dispatch, lines) => {
     if (event.key === " " || event.key === "Enter") {
-        dispatch(fetchStats(lines.join("\n")));
+        /* dispatch(fetchStats(lines.join("\n"))); */
     }
 
     if (event.key === "Tab") {
