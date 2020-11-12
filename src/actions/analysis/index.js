@@ -87,7 +87,7 @@ export const updateStats = (stats, token) => ({
 });
 
 let currentTimeouts = [];
-const throttleTime = 100;
+const throttleTime = 200;
 
 export const fetchAnalysis = (lineIndex, lineText) => (dispatch) => {
     clearTimeout(currentTimeouts[lineIndex]);
