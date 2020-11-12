@@ -86,22 +86,29 @@ export const updateStats = (stats, token) => ({
     token,
 });
 
+let currentTimeouts = [];
+const throttleTime = 100;
+
 export const fetchAnalysis = (lineIndex, lineText) => (dispatch) => {
-    const token = Math.random().toString(36).substr(2);
-    dispatch(fetchingAnalysis(lineIndex, lineText, token));
-    return axios
-        .post("https://darpa-poiesis-analyse.herokuapp.com/", {
-            lines: lineText,
-        })
-        .then((response) => {
-            dispatch({
-                type: UPDATE_ANALYSIS,
-                lineIndex: lineIndex,
-                analysis: response.data.lines[0],
-                token: token,
-                isMoved: false,
+    clearTimeout(currentTimeouts[lineIndex]);
+
+    currentTimeouts[lineIndex] = setTimeout(() => {
+        const token = Math.random().toString(36).substr(2);
+        dispatch(fetchingAnalysis(lineIndex, lineText, token));
+        return axios
+            .post("https://darpa-poiesis-analyse.herokuapp.com/", {
+                lines: lineText,
+            })
+            .then((response) => {
+                dispatch({
+                    type: UPDATE_ANALYSIS,
+                    lineIndex: lineIndex,
+                    analysis: response.data.lines[0],
+                    token: token,
+                    isMoved: false,
+                });
             });
-        });
+    }, throttleTime);
 };
 
 // see above not used for axios for some reason (could refactor)
