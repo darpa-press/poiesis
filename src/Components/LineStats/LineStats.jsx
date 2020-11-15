@@ -30,6 +30,9 @@ const LineStats = ({ index }) => {
     const template = useSelector((state) => state.options.template);
     const showAnalysis = useSelector((state) => state.options.showAnalysis);
     const analysis = useSelector((state) => state.analysis.lines[index]);
+    const isAnalysing = useSelector(
+        (state) => state.analysis.isAnalysing[index]
+    );
 
     let actualSyllables =
         analysis && analysis.noOfSyllables && analysis.noOfSyllables !== 0
@@ -50,7 +53,7 @@ const LineStats = ({ index }) => {
     return (
         <LineStatsDiv showAnalysis={showAnalysis}>
             <TemplateNo>{templateSyllables}</TemplateNo>
-            <ActualNo>{actualSyllables}</ActualNo>
+            <ActualNo>{isAnalysing ? "×" : actualSyllables}</ActualNo>
         </LineStatsDiv>
     );
 };

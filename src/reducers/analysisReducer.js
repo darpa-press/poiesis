@@ -1,4 +1,10 @@
-const INITIAL_STATE = { lines: [], tokens: [], statsToken: "", stats: {} };
+const INITIAL_STATE = {
+    lines: [],
+    tokens: [],
+    isAnalysing: [],
+    statsToken: "",
+    stats: {},
+};
 
 // should handle an updateLines action (this should kick off )
 function analysisReducer(state = INITIAL_STATE, action) {
@@ -13,11 +19,14 @@ function analysisReducer(state = INITIAL_STATE, action) {
                 action.token === newState.tokens[action.lineIndex]
             ) {
                 newState.lines[action.lineIndex] = action.analysis;
+                newState.isAnalysing[action.lineIndex] = false;
             }
             return newState;
         case "FETCHING_ANALYSIS":
             newState = { ...state };
             newState.tokens[action.lineIndex] = action.token;
+            //newState.isAnalysing = newState.isAnalysing || [];
+            newState.isAnalysing[action.lineIndex] = true;
             return newState;
         case "FETCHING_STATS":
             newState = { ...state };
